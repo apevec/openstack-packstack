@@ -6,7 +6,7 @@
 
 Name:           openstack-packstack
 Version:        2014.1.1
-Release:        0.1.dev%{git_revno}%{?dist}
+Release:        0.2.dev%{git_revno}%{?dist}
 Summary:        Openstack Install Utility
 
 Group:          Applications/System
@@ -14,6 +14,7 @@ License:        ASL 2.0 and GPLv2
 URL:            https://github.com/stackforge/packstack
 # Tarball is created by bin/release.sh
 Source0:        http://mmagr.fedorapeople.org/downloads/packstack/packstack-%{version}dev%{git_revno}.tar.gz
+Patch0:         el7-prescript.patch
 
 BuildArch:      noarch
 
@@ -63,6 +64,7 @@ This package contains documentation files for Packstack.
 
 %prep
 %setup -n packstack-%{version}dev%{git_revno}
+%patch0 -p1
 
 # Sanitizing a lot of the files in the puppet modules, they come from seperate upstream projects
 find packstack/puppet/modules \( -name .fixtures.yml -o -name .gemfile -o -name ".travis.yml" -o -name .rspec \) -exec rm {} +
@@ -131,6 +133,9 @@ install -p -D -m 644 docs/_build/man/*.1 %{buildroot}%{_mandir}/man1/
 # changelog --------------------------------------------------------------------
 
 %changelog
+* Mon Mar 03 2014 Alan Pevec <apevec@redhat.com> - 2014.1.1-0.2.dev992
+- disable prescript checks for el7
+
 * Mon Feb 24 2014 Martin Mágr <mmagr@redhat.com> - 2014.1.1-0.1.dev992
 - Added openstack-packstack-doc subpackage
 - Added openstack-packstack-puppet subpackage (rhbz#1063980)

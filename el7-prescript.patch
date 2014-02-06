@@ -1,0 +1,21 @@
+diff -ruN packstack-2013.2.1dev956/packstack/puppet/templates/prescript.pp packstack-2013.2.1dev956.prescript/packstack/puppet/templates/prescript.pp
+--- packstack-2013.2.1dev956/packstack/puppet/templates/prescript.pp	2013-12-09 12:24:13.000000000 +0100
++++ packstack-2013.2.1dev956.prescript/packstack/puppet/templates/prescript.pp	2014-02-06 20:41:08.167387233 +0100
+@@ -1,17 +0,0 @@
+-
+-if $::operatingsystem != "Fedora" {
+-    package{ 'openstack-selinux':
+-        ensure => present,
+-    }
+-}
+-
+-$info = "The RDO kernel that includes network namespace (netns) support has been installed on host $::ipaddress."
+-if $::operatingsystem == 'RedHat' {
+-    $warning = " This is a community supplied kernel and is not officially supported by Red Hat. Installing this kernel on RHEL systems may impact your ability to get support from Red Hat."
+-} else {
+-    $warning = ""
+-}
+-
+-class { 'packstack::netns':
+-    warning => "${info}${warning}"
+-}
