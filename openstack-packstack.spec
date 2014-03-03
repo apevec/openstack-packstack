@@ -73,7 +73,8 @@ find packstack/puppet/modules \( -name spec -o -name ext \) | xargs rm -rf
 
 # Moving this data directory out temporarily as it causes setup.py to throw errors
 rm -rf %{_builddir}/puppet
-mv packstack/puppet %{_builddir}/puppet
+mkdir -p %{_builddir}/puppet
+mv packstack/puppet/modules %{_builddir}/puppet
 
 
 # build ------------------------------------------------------------------------
